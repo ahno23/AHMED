@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
+  "engines": {
+    "node": "22.14.0"
+  },
+  "author": "Ahmed Essam",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
