@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node index.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -19,9 +19,10 @@
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
     "mongoose": "^8.13.2",
-    "next": "15.2.4",
+    "next": "^15.2.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "webpack": "^5.98.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
