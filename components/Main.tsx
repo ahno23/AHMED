@@ -31,9 +31,12 @@ function Main(){
           });
     }
     useEffect(()=>{
-      setTimeout(()=>{
-        SetVisible(false);
-      },1000)
+      if(IsVisible){
+        setTimeout(()=>{
+          Text.current.value = "";
+          SetVisible(false);
+        },2000)
+      }
     },[IsVisible])
     return(
       <> 

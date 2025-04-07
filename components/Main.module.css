@@ -3,7 +3,7 @@
     width: 80vw;
     height:40vh;
     position: absolute;
-    top:30vh;
+    bottom:20vh;
     left: 50%;
     transform: translate(-50%);
     border-radius: 20px;
