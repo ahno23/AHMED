@@ -30,14 +30,16 @@ function Main(){
               console.error('Error:', error);
           });
     }
-    useEffect(()=>{
-      if(IsVisible){
-        setTimeout(()=>{
-          Text.current?.value = "";
+    useEffect(() => {
+      if (IsVisible) {
+        setTimeout(() => {
+          if (Text.current) {
+            Text.current.value = "";
+          }
           SetVisible(false);
-        },2000)
+        }, 2000);
       }
-    },[IsVisible])
+    }, [IsVisible]);
     return(
       <> 
         <textarea
