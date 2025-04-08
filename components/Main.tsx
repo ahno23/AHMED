@@ -33,7 +33,7 @@ function Main(){
     useEffect(()=>{
       if(IsVisible){
         setTimeout(()=>{
-          Text.current.value = "";
+          Text.current?.value = "";
           SetVisible(false);
         },2000)
       }
