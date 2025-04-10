@@ -1,0 +1,14 @@
+.MSG{
+    text-align: center;
+    
+}
+.MSG div{
+    position:relative;
+    width:200px;
+    height:200px;
+    left:50%;
+    transform:translate(-50%);
+    margin-top: 10px;
+    border-radius: 20px;
+    background-color: rgba(22, 21, 21, 0.841);
+}

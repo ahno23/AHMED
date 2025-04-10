@@ -4,12 +4,11 @@ function Main(){
     const Text=useRef<HTMLTextAreaElement>(null)
     const [IsVisible,SetVisible]=useState(false);
     const Send=()=>{
-      const url = '/api/send'; // Replace with your API endpoint
       const data = {
           msg:Text.current?.value
       };
       
-      fetch(url, {
+      fetch('/api/send', {
           method: 'POST', // HTTP method
           headers: {
               'Content-Type': 'application/json' // Specify JSON format
@@ -27,7 +26,7 @@ function Main(){
               SetVisible(true);
           })
           .catch(error => {
-              console.error('Error:', error);
+              console.log('Error:', error);
           });
     }
     useEffect(() => {

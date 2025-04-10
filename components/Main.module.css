@@ -15,11 +15,10 @@
     bottom: 5vh;
     left: 50vw;
     transform: translate(-50%,-50%);
-    background-color: aqua;
+    background-color: var(--button);
     width: 250px;
     height: 50px;
     border-radius: 50px;
-    color: antiquewhite;
     font-size: 30px;
 }
 .BLUR{
@@ -33,12 +32,12 @@
 .BOX{
     width: 340px;
     height: 340px;
-    background-color: black;
+    background-color: var(--background);
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    border: 2px solid white;
+    border: 2px solid var(--foreground);
     border-radius:30px ;
     display: flex;
     justify-content: center;
@@ -52,6 +51,6 @@
     position: fixed;
     bottom:1%;
     left: 50%;
-    color: white;
     transform: translate(-50%);
+    
 }

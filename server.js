@@ -2,30 +2,18 @@ import express from 'express';
 import cors from 'cors';
 import next from 'next';
 import mongoose from 'mongoose';
-import save_message from "./controllers/controllers.js";
+import {save_message,gn_token, get_message} from "./controllers/controllers.js";
 import dotenv from "dotenv";
 import fs from 'fs';
 import {body,validationResult} from "express-validator"
 import path from "path";
 import { fileURLToPath } from "url";
-import crypto from "crypto";
 dotenv.config();
-// Function to encrypt a message
-function encryptMessage(message, key) {
-  const algorithm = 'aes-256-cbc';
-  const iv = Buffer.from(process.env.IV,"hex");
-  const cipher = crypto.createCipheriv(algorithm, Buffer.from(key, 'hex'), iv);
 
-  let encrypted = cipher.update(message, 'utf8', 'hex');
-  encrypted += cipher.final('hex');
-
-  return encrypted;
-}
 // Recreate __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-
+const port = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -34,17 +22,36 @@ server.use(cors())
 server.use(express.json())
 app.prepare().then(() => {
     // Define your custom API routes here
+    server.post("/api/genToken",[
+        body("user_name")
+        .isString()
+        .withMessage("user_name must be a string")
+        .notEmpty()
+        .withMessage("user_name not provided"),
+        body("password")
+        .isString()
+        .withMessage("password must be a string")
+        .notEmpty()
+        .withMessage("password not provided")
+    ],gn_token)
+    server.post("/api/get_message",[
+        body("token")
+        .isString()
+        .withMessage("token must be a string")
+        .notEmpty()
+        .withMessage("token not provided")
+    ],get_message)
     server.post('/api/send',[
         body("msg")
+        .isString()
         .notEmpty()
-        .withMessage("title not provided")
+        .withMessage("msg not provided")
     ], (req, res) => {
         const er = validationResult(req);
         if (!er.isEmpty()) {
             return res.status(400).json({status:"FAIL",data:er.array()});
         }
-        const encryptedMessage = encryptMessage(req.body.msg,process.env.KEY_ENC);
-        save_message(encryptedMessage);
+        save_message(req.body.msg);
         res.json({ message: 'Hi!' });
     });
     server.get('/images/my_photo.jpg',(req,res)=>{
@@ -62,8 +69,8 @@ app.prepare().then(() => {
     });
     mongoose.connect(process.env.MONGO_URL).then(()=>{
         console.log("MongoDB connected")
-        server.listen(3000, () => {
-            console.log('> Ready on http://localhost:3000');
+        server.listen(port, () => {
+            console.log(`> Ready on http://localhost:${port}`);
         });
     })
 });

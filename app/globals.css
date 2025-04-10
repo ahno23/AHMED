@@ -1,12 +1,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --button:blue;
+  --box:rgb(183, 183, 183);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --button:aqua;
+    --box:rgb(53, 51, 51);
   }
 }
 
