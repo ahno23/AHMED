@@ -27,8 +27,9 @@ export default function Admin(){
                 })       
                  .then(response => {
                     if (!response.ok) {
-                        response.json().then(result=>{
-                            alert(result.message);
+                        response.json().then(()=>{
+                            localStorage.clear()
+                            router.push("/login");
                         })
                         throw new Error(`HTTP error! status: ${ response.status}`);
                     }

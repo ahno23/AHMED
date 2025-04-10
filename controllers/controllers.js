@@ -49,7 +49,7 @@ const gn_token=async (req,res)=>{
     const Token=generateToken(64);
     const data=    await User.findOneAndUpdate(
         { user_name:req.body.user_name,password:hash(req.body.password )}, // condition to find the user
-        { token:Token },        // update data
+        { token:hash(Token) },        // update data
         { new: true }       // return the updated document (default is false)
     );
     if(data){
@@ -68,23 +68,29 @@ const get_message=async (req,res)=>{
         return res.status(400).json({status:"FAIL",data:er.array(),message:"check your input"});
     }
     try {
-    await User.find(
+        console.log(req.body.token)
+    const use=await User.find(
     { token:hash(req.body.token )} 
     );
+    console.log(use)
+    if(use.length){
      const data=await  Message.find({})
      console.log(data)
-     if(data){
+     if(data.length){
         const messages=[data[0].message,data[1].message];
         for (let i = 2; i < data.length; i++) {
             messages.push(decryptMessage(data[i].message,process.env.KEY_ENC))
         }
         res.status(201).json({status:"Success",messages})
      }else{
-        res.status(401).json({status:"FAIL",message:"tokin is not correct"})
+        res.status(401).json({status:"FAIL",message:"no message"})
+     }
+    }else{
+        res.status(401).json({status:"FAIL",message:"token is not correct"})
      }
     } catch (err) {
     console.log(err)
-    res.status(401).json({status:"FAIL",message:"tokin is not correct"})
+    res.status(401).json({status:"FAIL",message:"token is not correct"})
     }
 }
 export  {
